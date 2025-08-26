@@ -6,6 +6,8 @@ const App = () => {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState('');
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
+  const [editingUserId, setEditingUserId] = useState(null);
+  const [editFormData, setEditFormData] = useState({ name: '', email: '' });
 
   useEffect(() => {
     fetch('https://jsonplaceholder.typicode.com/users') 
@@ -19,7 +21,6 @@ const App = () => {
 
   const handleSort = (key) => {
     let direction = 'asc';
-
     if (sortConfig.key === key && sortConfig.direction === 'asc') {
       direction = 'desc';
     }
@@ -47,8 +48,31 @@ const App = () => {
     item.name.toLowerCase().includes(search.toLowerCase())
   );
 
-  const handleEdit = (id) => {
-    alert(`Edit user with ID: ${id}`);
+  const handleEditClick = (user) => {
+    setEditingUserId(user.id);
+    setEditFormData({ name: user.name, email: user.email });
+  };
+
+  const handleEditChange = (e) => {
+    const { name, value } = e.target;
+    setEditFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleEditSave = () => {
+    setData((prevData) =>
+      prevData.map((user) =>
+        user.id === editingUserId
+          ? { ...user, name: editFormData.name, email: editFormData.email }
+          : user
+      )
+    );
+    setEditingUserId(null);
+    setEditFormData({ name: '', email: '' });
+  };
+
+  const handleEditCancel = () => {
+    setEditingUserId(null);
+    setEditFormData({ name: '', email: '' });
   };
 
   return (
@@ -74,10 +98,39 @@ const App = () => {
           {filteredData.map((user) => (
             <tr key={user.id}>
               <td>{user.id}</td>
-              <td>{user.name}</td>
-              <td>{user.email}</td>
               <td>
-                <button onClick={() => handleEdit(user.id)}>Edit</button>
+                {editingUserId === user.id ? (
+                  <input
+                    type="text"
+                    name="name"
+                    value={editFormData.name}
+                    onChange={handleEditChange}
+                  />
+                ) : (
+                  user.name
+                )}
+              </td>
+              <td>
+                {editingUserId === user.id ? (
+                  <input
+                    type="text"
+                    name="email"
+                    value={editFormData.email}
+                    onChange={handleEditChange}
+                  />
+                ) : (
+                  user.email
+                )}
+              </td>
+              <td>
+                {editingUserId === user.id ? (
+                  <>
+                    <button onClick={handleEditSave}>Save</button>
+                    <button onClick={handleEditCancel}>Cancel</button>
+                  </>
+                ) : (
+                  <button onClick={() => handleEditClick(user)}>Edit</button>
+                )}
               </td>
             </tr>
           ))}
@@ -88,4 +141,3 @@ const App = () => {
 };
 
 export default App;
-
