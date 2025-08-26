@@ -1,2 +1,54 @@
 # SERI_EXAM
-This is the frontend project of fetching data from an API and performing edit, searching, and sorting for the same.
+Description of Project:
+
+1) This is frontend project done using React.js as frontend Technology by fetching data from API and display it dynamically in form of table.
+
+2) Table shows only some columns from fetched data from API like ID,Name,Email and has seach button to search in the table by name.
+
+3) Table also has edit option where changes can be made of name and email column and also saved back showing original table data along with updated changes.
+
+KEY FEATURES OF THIS PROJECT:
+
+1) Data Fetching:
+
+Uses useEffect to fetch user data from https://jsonplaceholder.typicode.com/users on component mount.
+
+Stores the fetched data in the data state.
+
+2) Search Functionality:
+
+Search state holds the current search query.
+
+Filters sortedData based on whether the user's name includes the search term (case-insensitive).
+
+3) Sorting Mechanism:
+
+SortConfig state tracks the current sort key and direction (asc or desc).
+
+Clicking on column headers (ID, Name, Email) triggers sorting.
+
+Sorting is handled via React.useMemo for performance optimization.
+
+4) Inline Editing:
+
+EditingUserId tracks which user is currently being edited.
+
+EditFormData stores temporary values for name and email during editing.
+
+Provides Edit, Save, and Cancel buttons for each row.
+
+Updates the data state with edited values on save.
+
+5) Memoization:
+
+SortedData is memoized to avoid unnecessary re-sorting on every render.
+
+Ensures efficient rendering especially with larger datasets.
+
+6) UI Elements:
+
+Basic styling with inline styles and external CSS (style.css).
+
+Table layout with clickable headers for sorting and input fields for editing.
+
+Search bar at the top for filtering by name.
