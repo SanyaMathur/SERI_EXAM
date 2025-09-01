@@ -68,3 +68,60 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+Project Description
+
+This is a frontend project built with React.js that fetches data from an external API and displays it dynamically in a table.
+The table supports searching, sorting, and inline editing of selected fields.
+
+The data is fetched from:
+https://jsonplaceholder.typicode.com/users
+
+Key Features:
+1) Data Fetching
+
+Uses useEffect to fetch user data on component mount.
+
+Stores the fetched data in the data state.
+
+2) Search Functionality
+
+Search input allows filtering the table by Name.
+
+Case-insensitive search for better usability.
+
+3) Sorting
+
+Clicking on column headers (ID, Name, Email) sorts data.
+
+sortConfig state tracks sorting key & order (ascending/descending).
+
+Sorting logic is optimized with React.useMemo.
+
+4) Inline Editing
+
+Allows editing of Name and Email fields directly in the table.
+
+Buttons:
+
+Edit → enable editing mode.
+
+Save → save updates back into the table.
+
+Cancel → discard changes.
+
+Updates reflect instantly in the data state.
+
+5 )Performance Optimization
+
+Memoization ensures efficient rendering by preventing unnecessary re-sorting.
+
+Optimized for larger datasets.
+
+6 )UI
+
+Clean table layout with clickable sortable headers.
+
+Simple search bar above the table.
+
+External CSS styling (style.css).
